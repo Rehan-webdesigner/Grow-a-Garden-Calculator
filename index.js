@@ -238,8 +238,8 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 var vite_config_default = defineConfig({
+  // GitHub Pages ke liye base path set
   base: "/Grow-a-Garden-Calculator/",
-  // <-- ye line add karo
   plugins: [
     react(),
     runtimeErrorOverlay(),
