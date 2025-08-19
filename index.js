@@ -238,6 +238,8 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 var vite_config_default = defineConfig({
+  base: "/Grow-a-Garden-Calculator/",
+  // <-- ye line add karo
   plugins: [
     react(),
     runtimeErrorOverlay(),
@@ -255,8 +257,6 @@ var vite_config_default = defineConfig({
     }
   },
   root: path.resolve(import.meta.dirname, "client"),
-  base: "/Grow-a-Garden-Calculator/",
-  // ye line add kar do
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true
