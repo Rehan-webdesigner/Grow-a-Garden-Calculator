@@ -228,7 +228,7 @@ async function registerRoutes(app2) {
 
 // server/vite.ts
 import express from "express";
-import fs from "fs";
+import fs2 from "fs";
 import path2 from "path";
 import { createServer as createViteServer, createLogger } from "vite";
 
@@ -237,13 +237,27 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
+import fs from "fs";
 var vite_config_default = defineConfig({
   // GitHub Pages ke liye base (repo name)
   base: "/Grow-a-Garden-Calculator/",
   plugins: [
     react(),
     runtimeErrorOverlay(),
-    ...process.env.NODE_ENV !== "production" && process.env.REPL_ID !== void 0 ? [await import("@replit/vite-plugin-cartographer").then((m) => m.cartographer())] : []
+    ...process.env.NODE_ENV !== "production" && process.env.REPL_ID !== void 0 ? [await import("@replit/vite-plugin-cartographer").then((m) => m.cartographer())] : [],
+    // Ye plugin index.html ko copy karke 404.html banayega
+    {
+      name: "copy-404",
+      closeBundle() {
+        const distDir = path.resolve(import.meta.dirname, "dist");
+        const indexHtml = path.resolve(distDir, "index.html");
+        const notFoundHtml = path.resolve(distDir, "404.html");
+        if (fs.existsSync(indexHtml)) {
+          fs.copyFileSync(indexHtml, notFoundHtml);
+          console.log("\u2705 404.html created for GitHub Pages");
+        }
+      }
+    }
   ],
   // IMPORTANT: frontend root is client/
   root: path.resolve(import.meta.dirname, "client"),
@@ -302,7 +316,7 @@ async function setupVite(app2, server) {
         "client",
         "index.html"
       );
-      let template = await fs.promises.readFile(clientTemplate, "utf-8");
+      let template = await fs2.promises.readFile(clientTemplate, "utf-8");
       template = template.replace(
         `src="/src/main.tsx"`,
         `src="/src/main.tsx?v=${nanoid()}"`
@@ -317,7 +331,7 @@ async function setupVite(app2, server) {
 }
 function serveStatic(app2) {
   const distPath = path2.resolve(import.meta.dirname, "public");
-  if (!fs.existsSync(distPath)) {
+  if (!fs2.existsSync(distPath)) {
     throw new Error(
       `Could not find the build directory: ${distPath}, make sure to build the client first`
     );
