@@ -238,7 +238,7 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 var vite_config_default = defineConfig({
-  // GitHub Pages ke liye base path set
+  // GitHub Pages ke liye base path
   base: "/Grow-a-Garden-Calculator/",
   plugins: [
     react(),
@@ -258,7 +258,8 @@ var vite_config_default = defineConfig({
   },
   root: path.resolve(import.meta.dirname, "client"),
   build: {
-    outDir: path.resolve(import.meta.dirname, "dist/public"),
+    // GitHub Pages ke liye correct output folder
+    outDir: path.resolve(import.meta.dirname, "dist"),
     emptyOutDir: true
   },
   server: {
