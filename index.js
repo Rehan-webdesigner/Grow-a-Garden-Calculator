@@ -255,6 +255,8 @@ var vite_config_default = defineConfig({
     }
   },
   root: path.resolve(import.meta.dirname, "client"),
+  base: "/Grow-a-Garden-Calculator/",
+  // ye line add kar do
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true
